@@ -1,0 +1,42 @@
+﻿@using System.Linq.Expressions
+@rendermode InteractiveServer
+<input type="text" @bind="For"  class="form-control @(isValid ? string.Empty : "is-invalid")"  />
+<ValidationMessage For="For"></ValidationMessage>
+
+@code
+{
+    [Parameter] public required string Value { get; set; }
+    [Parameter] public required bool IsRequired { get; set; }
+    [Parameter] public required string Identifier { get; set; }
+    [Parameter] public EventCallback<ChangeEventArgs> ValueChanged { get; set; }
+    [Parameter] public Expression<Func<TextViewModel>> For { get; set; }
+    [CascadingParameter] private EditContext CascadedEditContext { get; set; }
+
+    private FieldIdentifier _fieldIdentifier;
+    private bool isValid = true;
+
+    // private async Task HandleInputChanged(ChangeEventArgs e)
+    // {
+    //     var newValue = e.Value?.ToString() ?? string.Empty;
+    //     if (Value != newValue)
+    //     {
+    //         Value = newValue;
+    //         if (ValueChanged.HasDelegate)
+    //             await ValueChanged.InvokeAsync(Value);
+    //     }
+    // }\
+
+    protected override void OnParametersSet()
+    {
+        if (For != null)
+            _fieldIdentifier = FieldIdentifier.Create(For);
+
+        if (IsRequired)
+        {
+            var errorMessages = CascadedEditContext.GetValidationMessages(_fieldIdentifier);
+            isValid = !errorMessages.Any();
+        }
+    }
+}
+
+

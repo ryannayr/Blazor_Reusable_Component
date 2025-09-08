@@ -1,0 +1,60 @@
+﻿@using System.Linq.Expressions
+@using AspireApp2.Web.Components.Common
+
+@implements IDisposable
+@rendermode InteractiveServer
+
+@* <FormTextInput Model="@Model.Value" IsRequired="@IsRequired" Label="@Label" IsValid="@IsValid" Identifier="@Identifier" /> *@
+<ValidationMessage For="()=> Model"></ValidationMessage>
+
+@code
+{
+    [Parameter] public required string Label { get; set; }
+    [Parameter] public required TextViewModel Model { get; set; }
+    [Parameter] public required bool IsRequired { get; set; }
+    [Parameter] public Expression<Func<TextViewModel>> ValueExpression { get; set; }
+    [Parameter] public required string Identifier { get; set; }
+
+    [CascadingParameter] private EditContext CascadedEditContext { get; set; }
+    private bool IsValid { get; set; }
+    public FieldIdentifier _fieldIdentifier;
+    private EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
+    private EventHandler<FieldChangedEventArgs> _fieldChangedHandler;
+
+    protected override void OnInitialized()
+    {
+        if (Model is null)
+            Model = new();
+
+        if (CascadedEditContext == null)
+        {
+            throw new InvalidOperationException(
+              $"{GetType().Name} must be used inside an EditForm.");
+        }
+        _fieldIdentifier = CascadedEditContext.Field(Identifier);
+
+        if (Model is IIsRequired requiredModel)
+            requiredModel.IsRequired = IsRequired;
+
+        IsValid = !CascadedEditContext.GetValidationMessages(_fieldIdentifier).Any();
+
+        _validationStateChangedHandler = (sender, args) =>
+         {
+            IsValid = !CascadedEditContext.GetValidationMessages(_fieldIdentifier).Any();
+            StateHasChanged();
+        };
+        _fieldChangedHandler = (sender, args) =>
+        {
+            CascadedEditContext.NotifyValidationStateChanged();
+        };
+        CascadedEditContext.OnFieldChanged += _fieldChangedHandler;
+
+        CascadedEditContext.OnValidationStateChanged += _validationStateChangedHandler;
+    }
+
+    public void Dispose()
+    {
+        CascadedEditContext.OnValidationStateChanged -= _validationStateChangedHandler;
+        CascadedEditContext.OnFieldChanged -= _fieldChangedHandler;
+    }
+}

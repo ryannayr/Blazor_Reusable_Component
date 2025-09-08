@@ -1,0 +1,152 @@
+﻿@using System.Linq.Expressions
+@using System.Reflection
+@rendermode InteractiveServer
+@implements IDisposable
+<label class="form-label">
+    @Label
+    @if (IsRequired)
+    {
+        <span class="text-danger">*</span>
+    }
+</label>
+
+<input type="text"
+       class="form-control @CssClass"
+       @bind="@Value.Value"
+       @bind:event="onchange" />
+<ValidationMessage For="@(ValueExpression)"></ValidationMessage>
+@code {
+    [Parameter] public required string Label { get; set; }
+    [Parameter] public required TextViewModel Value { get; set; }
+    [Parameter] public required bool IsRequired { get; set; }
+
+    [CascadingParameter] private EditContext CascadedEditContext { get; set; }
+    private Expression<Func<string>> ValueExpression => () => Value.Value;
+    private string CssClass => CascadedEditContext.GetValidationMessages(_fieldIdentifier).Any() ? "is-invalid" : string.Empty;
+    private FieldIdentifier _fieldIdentifier;
+    private  EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
+
+    protected override void OnInitialized()
+    {
+        if (CascadedEditContext == null)
+        {
+            throw new InvalidOperationException(
+              $"{GetType().Name} must be used inside an EditForm.");
+        }
+        _fieldIdentifier = FieldIdentifier.Create(ValueExpression);
+
+        if (Value is IIsRequired requiredModel)
+            requiredModel.IsRequired = IsRequired;
+
+        _validationStateChangedHandler = (sender, args) =>
+        {
+            StateHasChanged();
+        };
+        CascadedEditContext.OnValidationStateChanged += _validationStateChangedHandler;
+    }
+
+    public void Dispose()
+    {
+        CascadedEditContext.OnValidationStateChanged -= _validationStateChangedHandler;
+    }
+
+
+    // [Parameter] public TextViewModel? TargetProperty { get; set; }
+
+    // private string? CssValidationClass;
+    // private EventHandler<FieldChangedEventArgs>? _fieldChangedHandler;
+    // private FieldIdentifier? _targetFieldIdentifier;
+    // protected override void OnParametersSet()
+    // {
+    //     // if (CascadedEditContext == null)
+    //     //     throw new InvalidOperationException($"{GetType()} must be used inside an EditForm.");
+
+
+    //     // if (TargetProperty != null)
+    //     //     _targetFieldIdentifier = FieldIdentifier.Create(() => TargetProperty.Value);
+
+    //     if (Value is IIsRequired requiredModel)
+    //         requiredModel.IsRequired = IsRequired;
+
+    //     var isModified = CascadedEditContext.IsModified(_fieldIdentifier);
+    //     if (isModified)
+    //         StateHasChanged();
+
+    //     UpdateValidationClass();
+    // }
+
+    // protected override void OnInitialized()
+    // {
+    //     string fielName = string.Empty;
+    //     if (ValueExpression.Body is MemberExpression memberData)
+    //         fielName = memberData.Member.Name;
+
+    //     var ss = CascadedEditContext.Field(fielName);
+    //     if (ss.FieldName != null)
+    //         _fieldIdentifier = ss;
+
+    //     var isModified = CascadedEditContext.IsModified(_fieldIdentifier);
+
+    //     if (Value is IIsRequired requiredModel)
+    //         requiredModel.IsRequired = IsRequired;
+
+    //     _fieldChangedHandler = (sender, args) =>
+    //     {
+    //         if (args.FieldIdentifier.FieldName.Equals(_fieldIdentifier.FieldName))
+    //         {
+    //             // if (_targetFieldIdentifier?.Model is IIsRequired requiredModel)
+    //             // {
+    //             //     requiredModel.IsRequired = true;
+    //             //     CascadedEditContext.NotifyFieldChanged(_targetFieldIdentifier.Value);
+    //             // }
+
+    //             // if (_fieldIdentifier.Model is IIsRequired fieldRequiredModel)
+    //             // {
+    //             //     if (fieldRequiredModel.IsRequired)
+    //             // }
+    //             StateHasChanged();
+
+    //         }
+    //     };
+
+    //     CascadedEditContext.OnFieldChanged += _fieldChangedHandler;
+    //     CascadedEditContext.OnValidationStateChanged += OnValidationRequested;
+    // }
+
+    // private void OnValidationRequested(object sender, ValidationStateChangedEventArgs args)
+    // {
+    //     var isModified = CascadedEditContext.IsModified(_fieldIdentifier);
+    //     var messages = CascadedEditContext.GetValidationMessages(() => Value);
+    // }
+
+    // private void HandleInputChanged(ChangeEventArgs e)
+    // {
+    //     var newValue = e.Value?.ToString() ?? string.Empty;
+
+    //     if (Value.Value != newValue)
+    //     {
+    //         Value.Value = newValue;
+    //         CascadedEditContext.NotifyFieldChanged(_fieldIdentifier);
+    //     }
+    //     // Notify EditContext that this field has changed
+
+    //     // Optionally trigger full validation (if needed)
+    //     // CascadedEditContext.Validate();
+
+    //     // UpdateValidationClass();
+    // }
+
+    // public void Dispose()
+    // {
+    //     CascadedEditContext.OnFieldChanged -= _fieldChangedHandler;
+    //     CascadedEditContext.OnValidationStateChanged -= OnValidationRequested;
+    // }
+
+
+    // private void UpdateValidationClass()
+    // {
+    //     CssValidationClass = CascadedEditContext.GetValidationMessages(() => Value).Any()
+    //         ? "is-invalid"
+    //         : "";
+    // }
+}
