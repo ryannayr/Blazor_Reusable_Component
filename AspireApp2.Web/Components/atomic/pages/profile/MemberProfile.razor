@@ -2,38 +2,20 @@
 
 <FormTemplate Model="profile">
     <FormInputs>
-        @* <SmartInput TValue="string" For="@(() => profile.FirstName.Value)" Value="@profile.FirstName.Value" ValueChanged="@((val) => profile.FirstName.Value = val)" CssClass="form-control"></SmartInput>
-        <SmartInput TValue="string" For="@(() => profile.LastName.Value)" Value="@profile.LastName.Value" ValueChanged="@((val) => profile.LastName.Value = val)" CssClass="form-control"></SmartInput> *@
-        @* <StringInput Label="First Name" Model="profile.FirstName" IsRequired="true" Identifier="@nameof(profile.FirstName)" ValueExpression="()=> profile.FirstName" /> *@
-        @* <StringInput Label="Last Name" Model="profile.LastName" IsRequired="true"  Identifier="@nameof(profile.LastName)" /> *@
-        <StringInput IsRequired="true" Label="First Name" Model="profile.FirstName"></StringInput>
-        <StringInput IsRequired="true" Label="Last Name" Model="profile.LastName"></StringInput>
-        <StringInput IsRequired="false" Label="Email" Model="profile.EmailAddress"></StringInput>
+        <TextViewModelInput IsRequired="true" Label="First Name" Model="profile.FirstName"></TextViewModelInput>
+        <TextViewModelInput IsRequired="true" Label="Last Name" Model="profile.LastName"></TextViewModelInput>
+        <TextViewModelInput IsRequired="false" Label="Email" Model="profile.EmailAddress"></TextViewModelInput>
     </FormInputs>
 </FormTemplate>
 
 @code
 {
-    private Profile profile { get; set; } = new() { FirstName = new(), LastName = new(), EmailAddress = new() };
+    private Profile profile { get; set; } = new()
+    {
+        FirstName = new(),
+        LastName = new(),
+        EmailAddress = new()
+    };
 }
 
-@* 
-
-<FormTemplate Model="@profile" @ref="FormTemplate">
-    <FormInputs>
-        <TextViewModelInput Label="First Name" Model="profile.FirstName" IsRequired="true" CascadedEditContext="FormTemplate.editContext" />
-         <TextViewModelInput Label="Last Name" Model="profile.LastName" IsRequired="true" />
-        <TextViewModelInput Label="Phone Number" Model="profile.PhoneNumber" IsRequired="true" />
-        <TextViewModelInput Label="Email Address" Model="profile.EmailAddress" IsRequired="false" /> 
-    </FormInputs>
-</FormTemplate>
-
-@code
-{
-    public FormTemplate<Profile> FormTemplate { get; set; }
-    private Profile profile = new Profile
-    {
-        FirstName = new() { Value = "Ryan" },
-    };
-} *@
 

@@ -7,17 +7,14 @@
        @onchange="HandleChange"
        class=" form-control @CssClass" />
 
-<ValidationMessage For="@For" />
 
 @code {
     [Parameter] public TValue Value { get; set; }
     [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
-    [Parameter] public Expression<Func<TValue>> For { get; set; }
     [Parameter] public string CssClass { get; set; }
     [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
-    [CascadingParameter] private EditContext CascadedEditContext { get; set; }
-    private string CurrentValueAsString => Convert.ToString(BindConverter.FormatValue(Value));
+    private string CurrentValueAsString => Convert.ToString(BindConverter.FormatValue(Value)) ?? string.Empty;
 
     private async Task HandleChange(ChangeEventArgs e)
     {

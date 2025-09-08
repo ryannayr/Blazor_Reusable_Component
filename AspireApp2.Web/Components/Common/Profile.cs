@@ -1,7 +1,4 @@
 ﻿using FluentValidation;
-using System.ComponentModel;
-using System.Globalization;
-using System.Security.AccessControl;
 namespace AspireApp2.Web.Components.Common
 {
     public class Profile
@@ -12,7 +9,6 @@ namespace AspireApp2.Web.Components.Common
         public TextViewModel EmailAddress { get; set; }
     }
 
-    [TypeConverter(typeof(TextViewModelConverter))]
     public class TextViewModel : IIsRequired, IStringValue
     {
         public string Value { get; set; }
@@ -44,27 +40,4 @@ namespace AspireApp2.Web.Components.Common
         }
     }
 
-
-    public class TextViewModelConverter : TypeConverter
-    {
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) =>
-            sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            if (value is string str)
-                return new TextViewModel { Value = str };
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) =>
-           destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (value is TextViewModel model)
-                return model.Value;
-            return base.ConvertTo(context, culture, value, destinationType);
-        }
-    }
 }
