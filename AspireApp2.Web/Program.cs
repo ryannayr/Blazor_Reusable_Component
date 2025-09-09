@@ -2,6 +2,7 @@ using AspireApp2.Web;
 using AspireApp2.Web.Components;
 using AspireApp2.Web.Components.atomic.models;
 using AspireApp2.Web.Components.atomic.pages.textinput;
+using AspireApp2.Web.Components.atomic.validators;
 using FluentValidation;
 using Radzen;
 

@@ -1,5 +1,4 @@
 ﻿@typeparam T
-@implements IDisposable
 <EditForm FormName="@($"{nameof(Model)}")" Enhance="true" EditContext="editContext">
     <FluentValidationValidator />
 
@@ -13,24 +12,11 @@
 @code {
     [Parameter] public required T Model { get; set; }
     [Parameter] public required RenderFragment<T> FormInputs { get; set; }
-    public required EditContext editContext;
-    private EventHandler<FieldChangedEventArgs> _fieldChangedHandler;
+    private EditContext editContext;
     protected override void OnInitialized()
     {
-       //  _fieldChangedHandler = (sender, args) =>
-       // {
-       //     editContext.NotifyValidationStateChanged();
-       //     this.StateHasChanged();
-       // };
-
         editContext = new EditContext(Model!);
-        // editContext.OnFieldChanged += _fieldChangedHandler;
         base.OnInitialized();
-    }
-
-    public void Dispose()
-    {
-        // editContext.OnFieldChanged -= _fieldChangedHandler;
     }
 
     void Submit()

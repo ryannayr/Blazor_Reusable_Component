@@ -11,6 +11,9 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.Testing" Version="8.1.0" />
+    <PackageReference Include="AutoFixture" Version="4.18.1" />
+    <PackageReference Include="bunit" Version="1.40.0" />
+    <PackageReference Include="bunit.core" Version="1.40.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageReference Include="NUnit" Version="4.1.0" />
     <PackageReference Include="NUnit.Analyzers" Version="4.2.0" />
@@ -19,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AspireApp2.AppHost\AspireApp2.AppHost.csproj" />
+    <ProjectReference Include="..\AspireApp2.Web\AspireApp2.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +31,10 @@
     <Using Include="Aspire.Hosting.ApplicationModel" />
     <Using Include="Aspire.Hosting.Testing" />
     <Using Include="NUnit.Framework" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Web\components\atomic\organisms\" />
   </ItemGroup>
 
 </Project>
