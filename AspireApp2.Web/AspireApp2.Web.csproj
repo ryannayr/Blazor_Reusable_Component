@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Blazored.FluentValidation" Version="2.2.0" />
+    <PackageReference Include="Radzen.Blazor" Version="7.3.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\atomic\models\" />
+    <Folder Include="Components\Common\" />
   </ItemGroup>
 
 </Project>

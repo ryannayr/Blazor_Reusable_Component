@@ -17,20 +17,20 @@
     private EventHandler<FieldChangedEventArgs> _fieldChangedHandler;
     protected override void OnInitialized()
     {
-        _fieldChangedHandler = (sender, args) =>
-       {
-           editContext.NotifyValidationStateChanged();
-           this.StateHasChanged();
-       };
+       //  _fieldChangedHandler = (sender, args) =>
+       // {
+       //     editContext.NotifyValidationStateChanged();
+       //     this.StateHasChanged();
+       // };
 
         editContext = new EditContext(Model!);
-        editContext.OnFieldChanged += _fieldChangedHandler;
+        // editContext.OnFieldChanged += _fieldChangedHandler;
         base.OnInitialized();
     }
 
     public void Dispose()
     {
-        editContext.OnFieldChanged -= _fieldChangedHandler;
+        // editContext.OnFieldChanged -= _fieldChangedHandler;
     }
 
     void Submit()

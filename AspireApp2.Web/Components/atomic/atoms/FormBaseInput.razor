@@ -6,8 +6,6 @@
        value="@CurrentValueAsString"
        @onchange="HandleChange"
        class=" form-control @CssClass" />
-
-
 @code {
     [Parameter] public TValue Value { get; set; }
     [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
@@ -15,7 +13,7 @@
     [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
     private string CurrentValueAsString => Convert.ToString(BindConverter.FormatValue(Value)) ?? string.Empty;
-
+        
     private async Task HandleChange(ChangeEventArgs e)
     {
         var raw = e.Value?.ToString();

@@ -1,0 +1,23 @@
+﻿@page "/text-input"
+
+@rendermode InteractiveServer
+
+<FormTemplate Model="model">
+    <FormInputs>
+        <BasicInputTextbox IsRequired="true" Label="Basic Input Text Required" Model="model.BasicInputTextRequired"></BasicInputTextbox>
+        <BasicInputTextbox IsRequired="false" Label="Basic Input Text" Model="model.BasicInputText"></BasicInputTextbox>
+        <RadzenInputTextbox IsRequired="true" Label="Radzen Input Text Required" Model="model.RadzenInputTextRequired"></RadzenInputTextbox>
+        <RadzenInputTextbox IsRequired="false" Label="Radzen Input Text" Model="model.RadzenInputText"></RadzenInputTextbox>
+    </FormInputs>
+</FormTemplate>
+
+@code
+{
+    private TextInputModel model { get; set; } = new()
+    {
+        BasicInputText = new(),
+        BasicInputTextRequired = new(),
+        RadzenInputText = new(),
+        RadzenInputTextRequired = new()
+    };
+}
