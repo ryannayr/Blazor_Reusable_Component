@@ -25,7 +25,7 @@ namespace AspireApp2.Tests.Web.components.atomic.validators
         public void Should_HaveError_WhenRequiredFieldsAreEmpty()
         {
             // Arrange
-            var model = new DateInputModel
+            var model = new TextInputModel
             {
                 BasicInputText = new TextValueModel { IsRequired = false, Value = "" },
                 BasicInputTextRequired = new TextValueModel { IsRequired = true, Value = "" },
@@ -50,7 +50,7 @@ namespace AspireApp2.Tests.Web.components.atomic.validators
         public void Should_NotHaveError_WhenAllValuesAreValid()
         {
             // Arrange
-            var model = _fixture.Build<DateInputModel>()
+            var model = _fixture.Build<TextInputModel>()
                 .With(x => x.BasicInputText, new TextValueModel { IsRequired = false, Value = "Optional" })
                 .With(x => x.BasicInputTextRequired, new TextValueModel { IsRequired = true, Value = "Required" })
                 .With(x => x.RadzenInputText, new TextValueModel { IsRequired = false, Value = "Optional" })

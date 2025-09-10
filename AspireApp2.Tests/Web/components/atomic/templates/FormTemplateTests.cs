@@ -18,7 +18,7 @@ public class GenericFormComponentTests
     public void Setup()
     {
         _ctx = new Bunit.TestContext();
-        _ctx.Services.AddSingleton<IValidator<DateInputModel>>(new TextInputModelValidator());
+        _ctx.Services.AddSingleton<IValidator<TextInputModel>>(new TextInputModelValidator());
     }
 
     [TearDown]
@@ -29,7 +29,7 @@ public class GenericFormComponentTests
     {
         // Arrange
         var fixture = new Fixture();
-        var model = new DateInputModel
+        var model = new TextInputModel
         {
             BasicInputTextRequired = new TextValueModel { IsRequired = true, Value = "" },
             RadzenInputTextRequired = new TextValueModel { IsRequired = true, Value = "" },
@@ -37,7 +37,7 @@ public class GenericFormComponentTests
             RadzenInputText = new TextValueModel { IsRequired = false, Value = "" }
         };
 
-        var cut = _ctx.RenderComponent<FormTemplate<DateInputModel>>(parameters => parameters
+        var cut = _ctx.RenderComponent<FormTemplate<TextInputModel>>(parameters => parameters
             .Add(p => p.Model, model)
             .Add(p => p.FormInputs, m => builder =>
             {
