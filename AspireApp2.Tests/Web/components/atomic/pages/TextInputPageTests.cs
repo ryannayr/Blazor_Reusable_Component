@@ -22,7 +22,7 @@ public class TextInputPageTests
         var cut = _ctx.RenderComponent<TextInputPage>();
         var model = cut.Instance.GetType()
             .GetProperty("model", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            .GetValue(cut.Instance) as TextInputModel;
+            .GetValue(cut.Instance) as DateInputModel;
 
         // Assert
         Assert.That(model, Is.Not.Null);

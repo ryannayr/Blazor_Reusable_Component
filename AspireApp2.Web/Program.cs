@@ -27,7 +27,8 @@ builder.Services.AddHttpClient<WeatherApiClient>(client =>
 
 builder.Services.AddScoped<IValidator<TextValueModel>, TextValueModelValidator>();
 builder.Services.AddScoped<IValidator<TextInputModel>, TextInputModelValidator>();
-
+builder.Services.AddScoped<IValidator<DateValueModel>, DateValueModelValidator>();
+builder.Services.AddScoped<IValidator<DateInputModel>, DateInputModelValidator>();
 
 var app = builder.Build();
 

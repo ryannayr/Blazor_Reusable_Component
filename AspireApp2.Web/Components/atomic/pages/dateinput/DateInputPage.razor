@@ -1,0 +1,20 @@
+﻿@page "/date-input"
+@using AspireApp2.Web.Components.atomic.pages.textinput
+
+@rendermode InteractiveServer
+
+<FormTemplate Model="model">
+    <FormInputs>
+        <BasicDate IsRequired="true" Label="Date Required" Model="model.BasicInputDateRequired"></BasicDate>
+        <BasicDate IsRequired="false" Label="Date" Model="model.BasicInputDate"></BasicDate>
+    </FormInputs>
+</FormTemplate>
+
+@code
+{
+    private DateInputModel model { get; set; } = new()
+    {
+        BasicInputDate = new(),
+        BasicInputDateRequired = new(),
+    };
+}

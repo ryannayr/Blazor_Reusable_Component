@@ -1,5 +1,4 @@
 ﻿using AspireApp2.Web.Components.atomic.models;
-using FluentValidation;
 
 namespace AspireApp2.Web.Components.atomic.pages.textinput
 {
@@ -10,6 +9,5 @@ namespace AspireApp2.Web.Components.atomic.pages.textinput
         public TextValueModel RadzenInputText { get; set; }
         public TextValueModel RadzenInputTextRequired { get; set; }
 
-        public DateValueModel BasicInputDate { get; set; }
     }
 }
