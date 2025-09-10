@@ -1,10 +1,10 @@
 ﻿@typeparam T
-<EditForm FormName="@($"{nameof(Model)}")" Enhance="true" EditContext="editContext">
+<EditForm FormName="@($"{typeof(T).Name}")" Enhance="true" EditContext="editContext">
     <FluentValidationValidator />
 
     @FormInputs(Model)
 
-    <button type="submit" class="btn btn-primary mt-2" @onclick="Submit">
+    <button type="button" class="btn btn-primary mt-2" @onclick="Submit">
         Save
     </button>
 </EditForm>
