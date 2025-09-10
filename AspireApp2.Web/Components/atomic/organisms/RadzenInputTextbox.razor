@@ -1,14 +1,10 @@
-﻿@using AspireApp2.Web.Components.atomic.interfaces
-@using AspireApp2.Web.Components.atomic.models
-
+﻿@inherits InputTextboxComponent<TextValueModel>
 <InputTextControl Model="@Model" Label="@Label" IsRequired="@IsRequired">
     <InputField>
-        <RadzenInputText CssClass="" Value="@(((ITextValue)context).Value)" ValueChanged="@((value) => ((ITextValue)context).Value = value)" />
+        <RadzenInputText CssClass="" Value="@(((ITextValue<string>)context).Value)" ValueChanged="@((value) => ((ITextValue<string>)context).Value = value)" />
+        @if (IsRequired)
+        {
+            <ValidationMessage For="@(() => ((ITextValue<string>)context).Value)" />
+        }
     </InputField>
 </InputTextControl>
-@code
-{
-    [Parameter] public required string Label { get; set; }
-    [Parameter] public required TextValueModel Model { get; set; }
-    [Parameter] public required bool IsRequired { get; set; }
-}

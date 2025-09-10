@@ -1,0 +1,11 @@
+﻿@inherits InputTextboxComponent<DateValueModel>
+
+<InputTextControl Model="Model" Label="@Label" IsRequired="@IsRequired">
+    <InputField>
+        <BasicInputDate CssClass="" Value="@(((ITextValue<DateTime?>)context).Value)" ValueChanged="@((value) => ((ITextValue<DateTime?>)context).Value = value)" />
+        @if (IsRequired)
+        {
+            <ValidationMessage For="@(() => ((ITextValue<DateTime?>)context).Value)" />
+        }
+    </InputField>
+</InputTextControl>

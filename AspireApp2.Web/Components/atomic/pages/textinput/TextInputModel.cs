@@ -9,5 +9,7 @@ namespace AspireApp2.Web.Components.atomic.pages.textinput
         public TextValueModel BasicInputTextRequired { get; set; }
         public TextValueModel RadzenInputText { get; set; }
         public TextValueModel RadzenInputTextRequired { get; set; }
+
+        public DateValueModel BasicInputDate { get; set; }
     }
 }

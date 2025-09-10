@@ -2,9 +2,9 @@
 
 namespace AspireApp2.Web.Components.atomic.models
 {
-    public class TextValueModel : IIsRequired, ITextValue<string>
+    public class DateValueModel : IIsRequired, ITextValue<DateTime?>
     {
-        public string Value { get; set; }
+        public DateTime? Value { get; set; }
         public bool IsRequired { get; set; }
     }
 }

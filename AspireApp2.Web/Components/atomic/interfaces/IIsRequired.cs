@@ -2,6 +2,6 @@
 {
     public interface IIsRequired
     {
-        public bool IsRequired { get; set; }
+        bool IsRequired { get; set; }
     }
 }

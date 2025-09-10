@@ -5,10 +5,6 @@
 
 <FormInputLabel Label="@Label" IsRequired="IsRequired"></FormInputLabel>
 @InputField(Model)
-@if (IsRequired)
-{
-    <ValidationMessage For="@(() => ((ITextValue)Model).Value)" />
-}
 
 @code
 {
