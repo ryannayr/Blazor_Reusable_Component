@@ -1,11 +1,11 @@
-﻿@inherits InputTextboxComponent<TextValueModel>
+﻿@inherits InputBaseComponent<TextValueModel>
 
-<InputTextControl Model="Model" Label="@Label" IsRequired="@IsRequired">
+<InputControl Model="Model" Label="@Label" IsRequired="@IsRequired">
     <InputField>
-        <BasicInputText CssClass="" Value="@(((ITextValue<string>)context).Value)" ValueChanged="@((value) => ((ITextValue<string>)context).Value = value)" />
+        <BasicInputText CssClass="" Value="@context.Value" ValueChanged="@((value) => context.Value = value)" />
         @if (IsRequired)
         {
-            <ValidationMessage For="@(() => ((ITextValue<string>)context).Value)" />
+            <ValidationMessage For="@(() => context.Value)" />
         }
     </InputField>
-</InputTextControl>
+</InputControl>

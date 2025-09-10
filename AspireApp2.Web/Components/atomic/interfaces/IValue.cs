@@ -1,7 +1,9 @@
 ﻿namespace AspireApp2.Web.Components.atomic.interfaces
 {
-    public interface IDateValue
+    public interface IValue<T>
     {
-         DateTime? Value { get; set; }
+         T Value { get; set; }
     }
+
+
 }

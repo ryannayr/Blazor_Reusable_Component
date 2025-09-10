@@ -1,9 +1,0 @@
-﻿namespace AspireApp2.Web.Components.atomic.interfaces
-{
-    public interface ITextValue<T>
-    {
-         T Value { get; set; }
-    }
-
-
-}

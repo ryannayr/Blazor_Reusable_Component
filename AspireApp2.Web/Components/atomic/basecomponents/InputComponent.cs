@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using AspireApp2.Web.Components.atomic.interfaces;
+using Microsoft.AspNetCore.Components;
 
 namespace AspireApp2.Web.Components.atomic.basecomponents
 {
@@ -7,6 +8,7 @@ namespace AspireApp2.Web.Components.atomic.basecomponents
         [Parameter] public T Value { get; set; }
         [Parameter] public EventCallback<T> ValueChanged { get; set; }
         [Parameter] public string CssClass { get; set; }
+
         [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
         public T ValueProxy
